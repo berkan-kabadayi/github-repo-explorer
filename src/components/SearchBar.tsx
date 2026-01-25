@@ -1,15 +1,31 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Dropdown, Form, Row, Spinner } from "react-bootstrap";
 
-function SearchBar() {
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [showDropdown, setShowDropdown] = useState(false);
+/* ---------- TYPES ---------- */
+
+interface SearchBarProps {
+  onSearch: (username: string) => void;
+}
+
+interface GitHubUser {
+  login: string;
+}
+
+interface GitHubUserSearchResponse {
+  items: GitHubUser[];
+}
+
+/* --------- COMPONENT ---------- */
+
+function SearchBar({ onSearch }: SearchBarProps) {
+  const [input, setInput] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [suggestion, setSuggestion] = useState<string[]>([]);
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
   useEffect(() => {
     if (input.length < 3) {
-      setSuggestions([]);
+      setSuggestion([]);
       setShowDropdown(false);
       return;
     }
@@ -19,16 +35,19 @@ function SearchBar() {
     const fetchSuggestions = async () => {
       try {
         setLoading(true);
+
         const response = await fetch(
           `https://api.github.com/search/users?q=${encodeURIComponent(
             input
           )}&per_page=5`,
           { signal: controller.signal }
         );
-        const data = await response.json();
+
+        const data: GitHubUserSearchResponse = await response.json();
+
         if (data.items) {
           const users = data.items.map((user) => user.login);
-          setSuggestions(users);
+          setSuggestion(users);
           setShowDropdown(users.length > 0);
         }
       } catch (error) {
@@ -46,11 +65,27 @@ function SearchBar() {
     };
   }, [input]);
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (input.trim()) {
+      onSearch(input.trim());
+      setSuggestion([]);
+      setShowDropdown(false);
+    }
+  };
+
+  const handleSelect = (username: string) => {
+    setInput(username);
+    setSuggestion([]);
+    setShowDropdown(false);
+    onSearch(username);
+  };
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Row>
         <Col>
-          <Dropdown>
+          <Dropdown show={showDropdown}>
             <Form.Control
               type="text"
               placeholder="Enter your GitHub username..."
@@ -58,6 +93,13 @@ function SearchBar() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
+            <Dropdown.Menu>
+              {suggestion.map((item) => (
+                <Dropdown.Item key={item} onClick={() => handleSelect(item)}>
+                  {item}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
           </Dropdown>
         </Col>
         <Col>
@@ -73,7 +115,7 @@ function SearchBar() {
               <span className="visually-hidden">Loading...</span>
             </Button>
           ) : (
-            <Button typeof="submit">Search</Button>
+            <Button type="submit">Search</Button>
           )}
         </Col>
       </Row>
