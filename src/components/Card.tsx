@@ -1,7 +1,8 @@
+import type { ReactNode } from "react";
+import RBCard from "react-bootstrap/Card";
 
-
-function Card() {
-  return <div>Card</div>;
+function Card({ children }: { children: ReactNode }) {
+  return <RBCard className="shadow-md p-3">{children}</RBCard>;
 }
 
 export default Card;
