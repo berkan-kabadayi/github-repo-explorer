@@ -63,7 +63,11 @@ function App() {
       <Container>
         <h1>Github Repo Explorer</h1>
         <ThemeToggle />
-        <SearchBar onSearch={setUserName} />
+        <div className="d-flex justify-content-center mb-4">
+          <div style={{ width: "100%", maxWidth: "600px" }}>
+            <SearchBar onSearch={setUserName} />
+          </div>
+        </div>
         {loading && (
           <div className="d-flex justify-content-center">
             <Spinner animation="border" role="status">

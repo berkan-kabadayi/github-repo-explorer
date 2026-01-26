@@ -1,0 +1,116 @@
+/* --------------------
+   GLOBAL SMOOTH THEME
+--------------------- */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* --------------------
+   PAGE LAYOUT
+--------------------- */
+.container {
+  max-width: 1100px;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+/* --------------------
+   HEADER
+--------------------- */
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* --------------------
+   THEME TOGGLE
+--------------------- */
+button.btn {
+  transition: all 0.2s ease;
+}
+
+button.btn:active {
+  transform: scale(0.95);
+}
+
+/* Pin ThemeToggle to the top right. */
+.container > button {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+}
+
+/* --------------------
+   SEARCH BAR
+--------------------- */
+form {
+  margin-bottom: 2rem;
+}
+
+form .row {
+  gap: 0.75rem;
+}
+
+/* --------------------
+   REPO LIST GRID
+--------------------- */
+.row.g-4 {
+  margin-top: 1rem;
+}
+
+/* --------------------
+   CARD STYLING
+--------------------- */
+.card {
+  height: 100%;
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* --------------------
+   REPO ITEM CONTENT
+--------------------- */
+.card a {
+  font-size: 1.05rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.card p {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+/* --------------------
+   LOADING SPINNER
+--------------------- */
+.spinner-border {
+  margin-top: 2rem;
+}
+
+/* --------------------
+   PAGINATION
+--------------------- */
+.btn-group {
+  gap: 0.75rem;
+}
+
+.btn-group .btn {
+  min-width: 120px;
+  border-radius: 10px !important;
+}
+.btn-group .btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
