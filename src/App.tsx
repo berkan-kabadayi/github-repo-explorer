@@ -10,6 +10,7 @@ import SearchBar from "./components/SearchBar";
 import { useEffect, useRef, useState } from "react";
 import type { RepoProps } from "./components/RepoItem";
 import RepoList from "./components/RepoList";
+import ThemeToggle from "./components/ThemeToggle";
 
 function App() {
   const [username, setUserName] = useState<string>("facebook");
@@ -20,48 +21,48 @@ function App() {
   const pageRef = useRef<number>(1);
 
   const fetchRepos = async (user: string, page: number) => {
-  try {
-    setLoading(true);
-    setError(null);
+    try {
+      setLoading(true);
+      setError(null);
 
-    const response = await fetch(
-      `https://api.github.com/users/${user}/repos?page=${page}&per_page=6`
-    );
+      const response = await fetch(
+        `https://api.github.com/users/${user}/repos?page=${page}&per_page=6`
+      );
 
-    const data: RepoProps[] = await response.json();
-    setRepos(data);
-    setHasMore(data.length === 6);
-  } catch (error) {
-    setError(
-      error instanceof Error ? error.message : "An unknown error occurred"
-    );
-  } finally {
-    setLoading(false);
-  }
-};
+      const data: RepoProps[] = await response.json();
+      setRepos(data);
+      setHasMore(data.length === 6);
+    } catch (error) {
+      setError(
+        error instanceof Error ? error.message : "An unknown error occurred"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
-
-useEffect(() => {
-  pageRef.current = 1;
-  fetchRepos(username, pageRef.current);
-}, [username]);
-
-const handlePrev = () => {
-  if (pageRef.current > 1) {
-    pageRef.current -= 1;
+  useEffect(() => {
+    pageRef.current = 1;
     fetchRepos(username, pageRef.current);
-  }
-};
+  }, [username]);
 
-const handleNext = () => {
-  pageRef.current += 1;
-  fetchRepos(username, pageRef.current);
-};
+  const handlePrev = () => {
+    if (pageRef.current > 1) {
+      pageRef.current -= 1;
+      fetchRepos(username, pageRef.current);
+    }
+  };
+
+  const handleNext = () => {
+    pageRef.current += 1;
+    fetchRepos(username, pageRef.current);
+  };
 
   return (
     <>
       <Container>
         <h1>Github Repo Explorer</h1>
+        <ThemeToggle />
         <SearchBar onSearch={setUserName} />
         {loading && (
           <div className="d-flex justify-content-center">
