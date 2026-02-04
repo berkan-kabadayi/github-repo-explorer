@@ -1,73 +1,51 @@
-# React + TypeScript + Vite
+## 🚀 GitHub Repo Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive React application that allows users to search for GitHub profiles and explore their public repositories. This project demonstrates clean coding practices using TypeScript, React Context API, and Bootstrap.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔍 **User Search with Autocomplete**: Real-time search suggestions using the GitHub Search API as you type.
+- 📄 **Pagination**: Efficiently browse through repositories with "Next" and "Previous" navigation (6 items per page).
+- 🌗 **Dark/Light Mode**: A global theme toggle managed via React Context API and integrated with Bootstrap 5's color modes.
+- ⚡ **Performance Optimized**: Implements Debouncing and AbortController to prevent unnecessary API calls and race conditions.
+- 📱 **Fully Responsive**: Built with react-bootstrap to ensure a seamless experience across mobile, tablet, and desktop.
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Category             | Tools           | Description                                                          |
+| -------------------- | --------------- | -------------------------------------------------------------------- |
+| **Core Framework**   | React 18        | Functional components with Hooks for a declarative UI.               |
+| **Language**         | TypeScript      | Strict type-checking for better developer experience and fewer bugs. |
+| **Styling**          | React Bootstrap | Pre-built UI components with Bootstrap 5 styling.                    |
+| **State Management** | Context API     | Used for global theme management (Dark/Light mode).                  |
+| **Build Tool**       | Vite            | Fast Next-generation frontend tooling for development.               |
+| **API**              | GitHub REST API | Fetching real-time user and repository data.                         |
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📁 Project Structure
+```
+src/
+├── components/     # UI Components (SearchBar, RepoList, RepoItem, Card, ThemeToggle)
+├── context/        # ThemeContext and ThemeProvider for global state
+├── App.tsx         # Main application logic and data fetching
+├── main.tsx        # Entry point
+└── App.css         # Custom application styles
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+To get a local copy up and running, follow these steps:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. **Clone the repository:**
+```bash
+   git clone https://github.com/berkan-kabadayi/github-repo-explorer.git
+```
+
+2. **Install dependencies:**
+```bash
+   npm install
+```
+
+3. **Run the development server:**
+```bash
+   npm run dev
 ```
